@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You 💗</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Dancing+Script:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #fffbfc 100%);
+            color: #5a3d4e;
+            overflow-x: hidden;
+        }
+
+        /* Floating petals animation */
+        .petal {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 182, 193, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 15s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Section styling */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            animation: fadeIn 2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #d4849c;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 50px;
+            color: #7a5668;
+            font-weight: 300;
+        }
+
+        /* Memory cards */
+        .memories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin-top: 40px;
+        }
+
+        .memory-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(212, 132, 156, 0.15);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 1s ease-out backwards;
+        }
+
+        .memory-card:nth-child(1) { animation-delay: 0.2s; }
+        .memory-card:nth-child(2) { animation-delay: 0.4s; }
+        .memory-card:nth-child(3) { animation-delay: 0.6s; }
+        .memory-card:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .memory-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(212, 132, 156, 0.25);
+        }
+
+        .memory-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .memory-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: #d4849c;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .memory-card p {
+            color: #8a7080;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Suspense button section */
+        .suspense-section {
+            min-height: 60vh;
+        }
+
+        .suspense-btn {
+            background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
+            }
+            50% {
+                box-shadow: 0 10px 40px rgba(255, 182, 193, 0.6);
+            }
+        }
+
+        .suspense-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.6);
+        }
+
+        .suspense-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .suspense-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .suspense-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Letter section */
+        .letter-section {
+            min-height: 100vh;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .letter-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .letter {
+            background: linear-gradient(to bottom, #fffaf0, #fff8f0);
+            max-width: 700px;
+            padding: 60px 50px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(212, 132, 156, 0.2);
+            position: relative;
+            border: 1px solid rgba(212, 132, 156, 0.1);
+        }
+
+        .letter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, #ffb6c1, #ffc0cb, #ffb6c1);
+        }
+
+        .letter-header {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #d4849c;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .letter-content {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            line-height: 2;
+            color: #5a3d4e;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .letter-content p {
+            margin-bottom: 25px;
+        }
+
+        .letter-signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            text-align: right;
+            color: #d4849c;
+            margin-top: 40px;
+        }
+
+        .heart-accent {
+            font-size: 1.5rem;
+            color: #ffb6c1;
+        }
+
+        /* Reply section */
+        .reply-section {
+            margin-top: 60px;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .reply-section h2 {
+            font-family: 'Playfair Display', serif;
+            color: #d4849c;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .reply-textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 25px;
+            border: 2px solid #ffb6c1;
+            border-radius: 15px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1.1rem;
+            color: #5a3d4e;
+            resize: vertical;
+            background: white;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .reply-textarea:focus {
+            outline: none;
+            border-color: #ffc0cb;
+            box-shadow: 0 5px 20px rgba(255, 182, 193, 0.3);
+        }
+
+        .reply-textarea::placeholder {
+            color: #c4a7b3;
+            font-style: italic;
+        }
+
+        .save-btn {
+            background: linear-gradient(135deg, #d4849c, #e99aaf);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 8px 25px rgba(212, 132, 156, 0.3);
+            transition: all 0.3s ease;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(212, 132, 156, 0.4);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .memories {
+                grid-template-columns: 1fr;
+            }
+
+            .letter {
+                padding: 40px 30px;
+            }
+
+            .letter-content {
+                font-size: 1rem;
+            }
+
+            .suspense-btn {
+                padding: 18px 40px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating petals -->
+    <div class="petal" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="petal" style="left: 25%; animation-delay: 2s;"></div>
+    <div class="petal" style="left: 40%; animation-delay: 4s;"></div>
+    <div class="petal" style="left: 60%; animation-delay: 1s;"></div>
+    <div class="petal" style="left: 75%; animation-delay: 3s;"></div>
+    <div class="petal" style="left: 90%; animation-delay: 5s;"></div>
+
+    <!-- Section 1: Hero & Memories -->
+    <section class="hero">
+        <h1>Hey love,</h1>
+        <p>This page holds a few memories…<br>and one feeling I've carried for a long time.</p>
+        
+        <div class="memories">
+    <div class="memory-card">
+        <div class="memory-icon">🌙</div>
+        <h3>Our late-night talks</h3>
+        <p>When the world sleeps and we share everything</p>
+    </div>
+    <div class="memory-card">
+        <div class="memory-icon">😂</div>
+        <h3>The laughs that never ended</h3>
+        <p>Those silly moments that became our favorite</p>
+    </div>
+    <div class="memory-card">
+        <div class="memory-icon">✨</div>
+        <h3>You, being you</h3>
+        <p>The way you light up every moment</p>
+    </div>
+    <div class="memory-card">
+        <div class="memory-icon">💫</div>
+        <h3>Every little thing</h3>
+        <p>That makes you perfectly imperfect</p>
+    </div>
+    <div class="memory-card">
+        <div class="memory-icon">🎂</div>
+        <h3>Celebrating Together</h3>
+        <p>Each moment becomes special with you</p>
+    </div>
+    <div class="memory-card">
+        <div class="memory-icon">🌸</div>
+        <h3>Good Night Wishes</h3>
+        <p>The last voice I want to have in my head</p>
+    </div>
+</div> <!-- This closes the memories section -->
+    </section>
+
+    <!-- Section 2: Suspense Button -->
+    <section class="suspense-section">
+        <button class="suspense-btn" id="revealBtn">
+            <span>I wanted to tell you something special for a long time…</span>
+        </button>
+    </section>
+
+    <!-- Section 3: Letter -->
+    <section class="letter-section" id="letterSection">
+        <div class="letter">
+            <div class="letter-header">My Love,</div>
+            <div class="letter-content">
+               <p>These two years with you don't feel like time that passed… they feel like moments that stayed. Time has flown by, but the memories remain fresh in our hearts.</p>
+                
+<p>You became my comfort on hard days, my smile on ordinary ones, and the person I want to tell everything to—first. They say that to be someone's better half, you must first be their best friend—a person they can talk to without barriers, who won't judge them, who enjoys their company and cherishes their comfort. I think we've always been that for each other, and we always will be.</p>
+                
+<p>Let me try to explain with words what I feel for you:</p>
+
+<p><em>"Sometimes I wish I was that tear that forms in your beautiful eyes, flows down kissing your cheeks, and then softly dies upon reaching your lips."</em></p>
+
+<p><em>"Sometimes I wish I was that breath you take, so I could be with you every moment—resting in your lungs when you're tired, dancing in your chest when you're happy."</em></p>
+
+<p><em>"Sometimes I wish to be the heartbeat you feel—might not seem important in daily life, but without it you couldn't live. I could be the one keeping you alive, beating faster when you're sad to comfort you, beating slower when you're happy to bring you peace."</em></p>
+
+<p><em>"Sometimes I wish you could understand how I see you, so you could admire yourself the way I admire you—because in every universe, no one will ever admire you the way I do."</em></p>
+
+<p>I don't know what the future looks like, but I know who I want standing beside me in it. It's always been you. It has to be you. I have only one thing to ask of you—<strong>to stay.</strong> I will take care of everything else.</p>
+                
+<p>So today, with a heart full of love and a little nervous smile, I want to ask you something I'll always mean—</p>
+                
+<p><strong>Will you keep choosing me, just like I choose you… every day?</strong> <span class="heart-accent">💗</span></p>
+                
+                <p>Happy Propose Day, my love.</p>
+            </div>
+            <div class="letter-signature">Forever yours ✍️</div>
+        </div>
+
+        <!-- Section 4: Reply Area -->
+        <div class="reply-section">
+            <h2>Your reply… 💭</h2>
+            <form id="replyForm" action="https://formspree.io/f/meelqlqy" method="POST">
+                <textarea class="reply-textarea" name="reply" placeholder="Write whatever your heart says…" id="replyText" required></textarea>
+                <input type="hidden" name="_subject" value="💗 Propose Day Reply">
+                <input type="hidden" name="_next" value="#letterSection">
+                <button type="submit" class="save-btn">Send to my heart 💌</button>
+            </form>
+            <p id="statusMessage" style="text-align: center; margin-top: 15px; color: #d4849c; font-family: 'Playfair Display', serif;"></p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll reveal functionality
+        document.getElementById('revealBtn').addEventListener('click', function() {
+            const letterSection = document.getElementById('letterSection');
+            letterSection.scrollIntoView({ behavior: 'smooth' });
+            
+            setTimeout(() => {
+                letterSection.classList.add('visible');
+            }, 500);
+        });
+
+        // Handle form submission with Formspree
+        const form = document.getElementById('replyForm');
+        const statusMessage = document.getElementById('statusMessage');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const replyText = document.getElementById('replyText').value;
+            
+            // Show sending status
+            statusMessage.textContent = 'Sending your message... 💭';
+            statusMessage.style.color = '#d4849c';
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    statusMessage.textContent = 'Your beautiful words have been sent 💗';
+                    statusMessage.style.color = '#d4849c';
+                    
+                    // Also save locally as backup
+                    localStorage.setItem('proposeReply', replyText);
+                    
+                    // Clear the form after 3 seconds
+                    setTimeout(() => {
+                        form.reset();
+                    }, 3000);
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                statusMessage.textContent = 'Oops! Something went wrong. Please try again 💔';
+                statusMessage.style.color = '#c77d8e';
+                console.error('Error:', error);
+            });
+        });
+
+        // Load saved reply on page load (backup from local storage)
+        window.addEventListener('load', function() {
+            const savedReply = localStorage.getItem('proposeReply');
+            if (savedReply) {
+                document.getElementById('replyText').value = savedReply;
+            }
+        });
+
+        // Add more floating petals dynamically
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + '%';
+            petal.style.animationDelay = Math.random() * 5 + 's';
+            petal.style.animationDuration = (10 + Math.random() * 10) + 's';
+            document.body.appendChild(petal);
+            
+            setTimeout(() => petal.remove(), 20000);
+        }
+
+        setInterval(createPetal, 3000);
+    </script>
+</body>
+</html>
